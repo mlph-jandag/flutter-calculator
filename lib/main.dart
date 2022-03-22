@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/providers/calculator_provider.dart';
 import 'package:flutter_calculator/screens/calculator/calculator_view.dart';
 import 'package:flutter_calculator/utils/common.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final calculatorProvider = ChangeNotifierProvider((ref) {
+  return CalculatorChangeNotifier();
+});
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

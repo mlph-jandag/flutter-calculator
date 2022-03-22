@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calculator/providers/calculator_provider.dart';
+import 'package:flutter_calculator/main.dart';
 import 'package:flutter_calculator/screens/calculator/calculator_button.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CalculatorView extends HookWidget {
+class CalculatorView extends HookConsumerWidget {
   const CalculatorView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenData = MediaQuery.of(context).size;
 
-    final calculatorChangeNotifier =
-        useChangeNotifierListenable(CalculatorChangeNotifier());
+    final calculatorChangeNotifier = ref.watch(calculatorProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -23,27 +22,31 @@ class CalculatorView extends HookWidget {
           child: Column(
             children: [
               Expanded(
-                child: Container(
-                  child: Center(child: Text(calculatorChangeNotifier.equation)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Text(calculatorChangeNotifier.equation),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
-                child: Container(
-                  child: Center(child: Text(calculatorChangeNotifier.result)),
-                ),
+                child: Center(child: Text(calculatorChangeNotifier.result)),
               )
             ],
           ),
         ),
         const Divider(thickness: 2, height: 2),
         Expanded(
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: GridView.count(
               shrinkWrap: true,
               crossAxisCount: 4,
               childAspectRatio: 1.3,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               children: _buildCalculatorButtons(),
             ),
           ),
@@ -59,15 +62,15 @@ class CalculatorView extends HookWidget {
         isSpecial: true,
       ),
       CalculatorButton(
-        '⌫',
-        isSpecial: true,
-      ),
-      CalculatorButton(
         '+/-',
         isSpecial: true,
       ),
       CalculatorButton(
-        '÷',
+        '%',
+        isSpecial: true,
+      ),
+      CalculatorButton(
+        'DEL',
         isSpecial: true,
         isOperator: true,
       ),
@@ -75,7 +78,7 @@ class CalculatorView extends HookWidget {
       CalculatorButton('8'),
       CalculatorButton('9'),
       CalculatorButton(
-        'x',
+        '/',
         isSpecial: true,
         isOperator: true,
       ),
@@ -83,7 +86,7 @@ class CalculatorView extends HookWidget {
       CalculatorButton('5'),
       CalculatorButton('6'),
       CalculatorButton(
-        '-',
+        'x',
         isSpecial: true,
         isOperator: true,
       ),
@@ -91,16 +94,18 @@ class CalculatorView extends HookWidget {
       CalculatorButton('2'),
       CalculatorButton('3'),
       CalculatorButton(
-        '+',
+        '-',
         isSpecial: true,
+        isOperator: true,
       ),
       CalculatorButton('0'),
-      CalculatorButton('00'),
       CalculatorButton('.'),
       CalculatorButton('=', isEqualSign: true),
+      CalculatorButton(
+        '+',
+        isSpecial: true,
+        isOperator: true,
+      ),
     ];
   }
-
-  Future<void> _incrementCounter(
-      CalculatorChangeNotifier calculatorChangeNotifier) async {}
 }

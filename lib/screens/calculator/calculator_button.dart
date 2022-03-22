@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/main.dart';
 import 'package:flutter_calculator/providers/calculator_provider.dart';
 import 'package:flutter_calculator/utils/common.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CalculatorButton extends HookWidget {
+class CalculatorButton extends HookConsumerWidget {
   final String label;
   final bool isSpecial;
   final bool isOperator;
@@ -17,11 +18,10 @@ class CalculatorButton extends HookWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenData = MediaQuery.of(context).size;
 
-    final calculatorChangeNotifier =
-        useChangeNotifierListenable(CalculatorChangeNotifier());
+    final calculatorChangeNotifier = ref.watch(calculatorProvider);
 
     return InkWell(
       onTap: () {
