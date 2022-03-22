@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/providers/calculator_provider.dart';
 import 'package:flutter_calculator/utils/common.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class CalculatorButton extends StatelessWidget {
+class CalculatorButton extends HookWidget {
   final String label;
   final bool isSpecial;
   final bool isOperator;
@@ -17,9 +19,13 @@ class CalculatorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenData = MediaQuery.of(context).size;
+
+    final calculatorChangeNotifier =
+        useChangeNotifierListenable(CalculatorChangeNotifier());
+
     return InkWell(
       onTap: () {
-        print('btn tap $label');
+        _onButtonClick(calculatorChangeNotifier, label);
       },
       child: Container(
         color: isOperator
@@ -38,5 +44,10 @@ class CalculatorButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _onButtonClick(
+      CalculatorChangeNotifier calculatorChangeNotifier, String label) async {
+    return calculatorChangeNotifier.onType(label);
   }
 }

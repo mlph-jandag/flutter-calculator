@@ -3,11 +3,6 @@ import 'package:flutter_calculator/providers/calculator_provider.dart';
 import 'package:flutter_calculator/screens/calculator/calculator_button.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-T useChangeNotifierListenable<T extends ChangeNotifier>(T data) {
-  final state = useState<T>(data);
-  return useListenable(state.value);
-}
-
 class CalculatorView extends HookWidget {
   const CalculatorView({Key? key}) : super(key: key);
 
@@ -29,18 +24,18 @@ class CalculatorView extends HookWidget {
             children: [
               Expanded(
                 child: Container(
-                  child: Center(child: Text('equation')),
+                  child: Center(child: Text(calculatorChangeNotifier.equation)),
                 ),
               ),
               Expanded(
                 child: Container(
-                  child: Center(child: Text('result')),
+                  child: Center(child: Text(calculatorChangeNotifier.result)),
                 ),
               )
             ],
           ),
         ),
-        Divider(thickness: 2, height: 2),
+        const Divider(thickness: 2, height: 2),
         Expanded(
           child: Container(
             width: double.infinity,
