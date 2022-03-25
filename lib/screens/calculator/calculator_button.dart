@@ -23,16 +23,20 @@ class CalculatorButton extends HookConsumerWidget {
 
     final calculatorChangeNotifier = ref.watch(calculatorProvider);
 
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         _onButtonClick(calculatorChangeNotifier, label);
       },
       child: Container(
-        color: isOperator
-            ? Common.primaryBgColor
-            : isEqualSign
-                ? Common.primaryColor
-                : Common.secondaryColor,
+        width: screenData.width / 4 - 20,
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: BoxDecoration(
+            color: isOperator
+                ? Common.primaryBgColor
+                : isEqualSign
+                    ? Common.primaryColor
+                    : Common.secondaryColor,
+            borderRadius: BorderRadius.circular(20)),
         child: Center(
           child: Text(
             label,

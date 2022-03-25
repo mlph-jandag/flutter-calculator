@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Common {
   static const TextStyle pageHeadingTextStyle =
@@ -6,6 +6,8 @@ class Common {
 
   static const TextStyle calculatorBtnTextStyle =
       TextStyle(fontSize: 26, fontWeight: FontWeight.w700);
+  static const TextStyle resultTextStyle =
+      TextStyle(fontWeight: FontWeight.w700, color: Colors.white);
 
   static const primaryColor = Color(0xff02b0a6);
   static const primaryBgColor = Color(0xff264651);
