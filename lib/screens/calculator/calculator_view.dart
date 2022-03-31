@@ -17,48 +17,51 @@ class CalculatorView extends HookConsumerWidget {
       appBar: AppBar(
         title: const Text('Flutter Calculator'),
       ),
-      body: Column(children: [
-        SizedBox(
-          height: screenData.height * 0.25,
-          child: Column(
-            children: [
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Text(
-                        calculatorChangeNotifier.equation,
-                        style: Common.resultTextStyle.copyWith(
-                          fontSize: calculatorChangeNotifier.equationFontSize,
+      body: Column(
+        children: [
+          SizedBox(
+            height: screenData.height * 0.25,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Text(
+                          calculatorChangeNotifier.equation,
+                          style: Common.resultTextStyle.copyWith(
+                            fontSize: calculatorChangeNotifier.equationFontSize,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Text(
-                        calculatorChangeNotifier.result,
-                        style: Common.resultTextStyle.copyWith(
-                            fontSize: calculatorChangeNotifier.resultFontSize),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Text(
+                          calculatorChangeNotifier.result,
+                          style: Common.resultTextStyle.copyWith(
+                              fontSize:
+                                  calculatorChangeNotifier.resultFontSize),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        const Divider(thickness: 2, height: 2),
-        _buildCalculatorButtons()
-      ]),
+          const Divider(thickness: 2, height: 2),
+          _buildCalculatorButtons(),
+        ],
+      ),
     );
   }
 
@@ -80,7 +83,7 @@ class CalculatorView extends HookConsumerWidget {
                 isSpecial: true,
               ),
               CalculatorButton(
-                '',
+                '%',
                 isSpecial: true,
               ),
               CalculatorButton(
